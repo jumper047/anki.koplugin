@@ -13,6 +13,9 @@ local MultiDefinitionGeneral = {
     },
     -- set to true if you don't want to capture unnormalized words (like you want only 'bank', and not 'river bank')
     strict_only = false,
+    -- if nil, dictionary entry where button "add to anki" was pressed will be treated like any other.
+    -- otherwise, variable should contain note's field where current dict entry will be placed
+    current_field = nil,
 }
 
 function MultiDefinitionGeneral:convert_dict_to_HTML(dictionaries)
@@ -40,7 +43,12 @@ function MultiDefinitionGeneral:run(note)
         -- don't add definitions where the dict word does not match the selected dict's word
         if not self.strict_only or result.word == selected_dict.word then
             local is_selected = idx == self.popup_dict.dict_index
-            local field = self.dict_field_map[result.dict]
+            local field
+            if is_selected and self.current_field then
+               field = self.current_field
+            else
+               field = self.dict_field_map[result.dict]
+            end
             if field  then
                local field_defs = field_dict_map[field]
                -- make sure that the selected dictionary is always inserted in the beginning
