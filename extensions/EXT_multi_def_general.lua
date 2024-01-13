@@ -11,7 +11,9 @@ local MultiDefinitionGeneral = {
         -- ["JMdict Rev. 1.9"] = "SentEng",
        ["Cambridge Advanced Learner's Dictionary"] = "TranslEn",
        ["English-Russian short dictionary"] = "TranslRu",
-    }
+    },
+    -- set to true if you don't want to capture unnormalized words (like you want only 'bank', and not 'river bank')
+    strict_only = false,
 }
 
 function MultiDefinitionGeneral:convert_dict_to_HTML(dictionaries)
@@ -37,8 +39,7 @@ function MultiDefinitionGeneral:run(note)
     local field_dict_map = u.defaultdict(function() return {} end)
     for idx, result in ipairs(self.popup_dict.results) do
         -- don't add definitions where the dict word does not match the selected dict's word
-        -- if result.word == selected_dict.word then
-       if true  then
+        if not self.strict_only or result.word == selected_dict.word then
             local is_selected = idx == self.popup_dict.dict_index
             local field = self.dict_field_map[result.dict]
             if field  then
