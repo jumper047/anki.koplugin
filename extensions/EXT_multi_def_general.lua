@@ -41,9 +41,11 @@ function MultiDefinitionGeneral:run(note)
        if true  then
             local is_selected = idx == self.popup_dict.dict_index
             local field = self.dict_field_map[result.dict]
-            local field_defs = field_dict_map[field]
-            -- make sure that the selected dictionary is always inserted in the beginning
-            table.insert(field_defs, is_selected and 1 or #field_defs+1, result)
+            if field  then
+               local field_defs = field_dict_map[field]
+               -- make sure that the selected dictionary is always inserted in the beginning
+               table.insert(field_defs, is_selected and 1 or #field_defs+1, result)
+            end
         else
             local skip_msg = "Skipping %s dict entry: kana word '%s' ~= selected dict word '%s'"
             logger.info(skip_msg:format(result.dict, result.word, selected_dict.word))
