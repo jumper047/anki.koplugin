@@ -1,6 +1,5 @@
 local logger = require("logger")
 local u = require("lua_utils/utils")
-local inspect = require("lua_utils.inspect")
 
 local MultiDefinitionGeneral = {
     description = "This plugin helps to gather multiple descriptions from multiple dictionaries into one note",
