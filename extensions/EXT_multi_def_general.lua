@@ -9,6 +9,8 @@ local MultiDefinitionGeneral = {
     dict_field_map = {
         -- the below example sends dictionary entries from 'JMdict'  to the field 'SentEng' on the anki note
         -- ["JMdict Rev. 1.9"] = "SentEng",
+       ["Cambridge Advanced Learner's Dictionary"] = "TranslEn",
+       ["English-Russian short dictionary"] = "TranslRu",
     }
 }
 
@@ -35,7 +37,8 @@ function MultiDefinitionGeneral:run(note)
     local field_dict_map = u.defaultdict(function() return {} end)
     for idx, result in ipairs(self.popup_dict.results) do
         -- don't add definitions where the dict word does not match the selected dict's word
-        if result.word == selected_dict.word then
+        -- if result.word == selected_dict.word then
+       if true  then
             local is_selected = idx == self.popup_dict.dict_index
             local field = self.dict_field_map[result.dict]
             local field_defs = field_dict_map[field]
